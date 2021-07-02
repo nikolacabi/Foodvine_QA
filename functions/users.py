@@ -3,13 +3,15 @@ import openpyxl
 import random
 
 # Function that generates unsername, email and password and returns them
+USER_SHEET_LOC = 'storage/data/Users.xlsx'
+
 def genuser():
 
     un = 'testnikola' + datetime.now().strftime("%d%m%Y%H%M%S")
     email = un + "@gmail.com"
     pw = '1234Test'
 
-    wb = openpyxl.load_workbook('storage/data/Users.xlsx', read_only=True)
+    wb = openpyxl.load_workbook(USER_SHEET_LOC, read_only=True)
     ws = wb['Users']
     wb.close()
     row_count = ws.max_row      # row count can be read only in read_only=True so this is here and not in below part
@@ -31,7 +33,7 @@ def genuser():
 # Function that returns random user credentials
 def getuser():
 
-    wb = openpyxl.load_workbook('Users.xlsx', read_only=True)
+    wb = openpyxl.load_workbook(USER_SHEET_LOC, read_only=True)
     ws = wb['Users']
     row_count = ws.max_row
 

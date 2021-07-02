@@ -5,7 +5,7 @@ import openpyxl
 # l is last city in list to be considered
 def gencity():
 
-    wb = openpyxl.load_workbook('/storage/data/Cities.xlsx', read_only=True)
+    wb = openpyxl.load_workbook('storage/data/Cities.xlsx', read_only=True)
     ws = wb['Details']
 
     row_count = ws.max_row

@@ -251,7 +251,12 @@ if __name__ == '__main__':
 
 
 
-    sleep(30)
+    sleep(5)
+
+    driver = setup()
+
+    sleep(5)
+
 
 
 
