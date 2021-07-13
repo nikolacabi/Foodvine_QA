@@ -1,3 +1,4 @@
+import pytest
 from appium import webdriver
 from time import sleep
 import random
@@ -20,12 +21,13 @@ from functions.set_up import setup_no_app
 from functions.start_foodvine_from_homescreen import startfoodvinefromhomescreen
 from pages.forgot_password_page import ForgotPasswordPage
 from pages.choose_new_password_page import ChooseNewPasswordPage
-
-
+from functions.users import changepw
+from functions.users import saveuser
+from tests import test_login
 
 if __name__ == '__main__':
 
-    # driver = setup("4.65_720p_Galaxy_Nexus_API_30")
+
     driver = setup()
 
 
@@ -78,7 +80,7 @@ if __name__ == '__main__':
     #### Phone Number Verification page ####
     phonenumberverificationpage = PhoneNumberVerificationPage(driver)
 
-    sleep(30)
+    sleep(5)
     assert phonenumberverificationpage.get_text(phonenumberverificationpage.PAGE_TITLE_XPATH) == "Phone number verification"
     sms_code = getsmscode()
     print('SMS code:', sms_code)
@@ -90,7 +92,7 @@ if __name__ == '__main__':
 
     sleep(2)
     assert foodpreferencespage.get_text(foodpreferencespage.PAGE_TITLE_XPATH) == "Food preferences"
-
+    # saveuser(un, email, pw)
 
 
 
@@ -260,143 +262,71 @@ if __name__ == '__main__':
 
 
 
-    #### [Automated test] Login to Foodie Account ####
-    #### Landing page ####
-    landingpage = LandingPage(driver)
 
-    landingpage.click_button(landingpage.ALLREADY_HAVE_AN_ACCOUNT_BUTTON_XPATH)
-    sleep(2)
-
-    #### Login page ####
-    loginpage = LoginPage(driver)
-
-    assert loginpage.get_text(loginpage.PAGE_TITLE_XPATH) == "Login"
-
-    un = getuser()[0]
-    email = getuser()[1]
-    pw = getuser()[2]
-    print("Username, email and password are:", un, ',', email, ',', pw)
-    loginpage.input_text(loginpage.USERNAME_OR_EMAIL_XPATH, un)
-    sleep(1)
-    loginpage.input_text(loginpage.PASSWORD_XPATH, pw)
-    sleep(1)
-
-    loginpage.click_button(loginpage.LOGIN_BUTTON_XPATH)
-
-    #### Feed page ####
-    sleep(5)
-    feedpage = FeedPage(driver)
-    try:
-        print("Page title is ", feedpage.get_text(feedpage.PAGE_TITLE_XPATH))
-        assert feedpage.get_text(feedpage.PAGE_TITLE_XPATH) == 'Most recent'
-    except:
-        print("Couldnt parse Feed page")
-
-    sleep(1)
-    driver.close_app()
-
-    sleep(1)
-    driver = setup_no_app()
-
-    sleep(1)
-    startfoodvinefromhomescreen(driver)
-
-    #### Feed page ####
-    sleep(5)
-    feedpage = FeedPage(driver)
-    try:
-        print("Page title is ", feedpage.get_text(feedpage.PAGE_TITLE_XPATH))
-        assert feedpage.get_text(feedpage.PAGE_TITLE_XPATH) == 'Most recent'
-    except:
-        print("Couldnt parse Feed page")
-
-
-
-    sleep(30)
-
-
-    #### [Automated test] Forgot password ####
-    #### Landing page ####
-    landingpage = LandingPage(driver)
-
-    landingpage.click_button(landingpage.ALLREADY_HAVE_AN_ACCOUNT_BUTTON_XPATH)
-    sleep(2)
-
-    #### Login page ####
-    loginpage = LoginPage(driver)
-
-    assert loginpage.get_text(loginpage.PAGE_TITLE_XPATH) == "Login"
-
-    loginpage.click_button(loginpage.FORGOT_PASSWORD_BUTTON_XPATH)
-    sleep(1)
-
-
-    #### Forgot password page ####
-    sleep(1)
-    forgotpasswordpage = ForgotPasswordPage(driver)
-
-    assert forgotpasswordpage.get_text(forgotpasswordpage.PAGE_TITLE_XPATH) == "Forgot password"
-
-    un = getuser()[0]
-    email = getuser()[1]
-    pw = getuser()[2]
-    print("Username, email and password are:", un, ',', email, ',', pw)
-    forgotpasswordpage.input_text(forgotpasswordpage.USERNAME_OR_EMAIL_XPATH, un)
-    forgotpasswordpage.click_button(forgotpasswordpage.SEND_BUTTON_XPATH)
-
-    sleep(2)
-
-
-    #### Phone Number Verification page ####
-    phonenumberverificationpage = PhoneNumberVerificationPage(driver)
-    assert phonenumberverificationpage.get_text(phonenumberverificationpage.PAGE_TITLE_PW_CHANGE_XPATH) == "Phone number verification"
-    sleep(30)
-    sms_code = getsmscode()
-    print('SMS code:', sms_code)
-    phonenumberverificationpage.input_text(phonenumberverificationpage.SMS_CODE_PW_CHANGE_INPUT, sms_code)
-
-    sleep(2)
-
-    #### Choose new password page ####
-    choosenewpasswordpage = ChooseNewPasswordPage(driver)
-    assert choosenewpasswordpage.get_text(choosenewpasswordpage.PAGE_TITLE_XPATH) == 'Choose new password'
-
-    if pw == "1234Test":
-        pw = "1234Tests"
-    else:
-        pw = "1234Test"
-
-    choosenewpasswordpage.input_text(choosenewpasswordpage.NEW_PASSWORD_XPATH, pw)
-    choosenewpasswordpage.input_text(choosenewpasswordpage.REPEAT_NEW_PASSWORD_XPATH, pw)
-    choosenewpasswordpage.click_button(choosenewpasswordpage.CHANGE_PASSWORD_BUTTON_XPATH)
-
-    sleep(2)
+    #
+    # #### [Automated test] Login to Foodie Account ####
+    # #### Landing page ####
+    # landingpage = LandingPage(driver)
+    #
+    # landingpage.click_button(landingpage.ALLREADY_HAVE_AN_ACCOUNT_BUTTON_XPATH)
+    # sleep(2)
+    #
+    # #### Login page ####
+    # loginpage = LoginPage(driver)
+    #
+    # assert loginpage.get_text(loginpage.PAGE_TITLE_XPATH) == "Login"
+    #
+    # un = getuser()[0]
+    # email = getuser()[1]
+    # pw = getuser()[2]
+    # print("Username, email and password are:", un, ',', email, ',', pw)
+    # loginpage.input_text(loginpage.USERNAME_OR_EMAIL_XPATH, un)
+    # sleep(1)
+    # loginpage.input_text(loginpage.PASSWORD_XPATH, pw)
+    # sleep(1)
+    #
+    # loginpage.click_button(loginpage.LOGIN_BUTTON_XPATH)
+    #
+    # #### Feed page ####
+    # sleep(5)
+    # feedpage = FeedPage(driver)
+    # try:
+    #     print("Page title is ", feedpage.get_text(feedpage.PAGE_TITLE_XPATH))
+    #     assert feedpage.get_text(feedpage.PAGE_TITLE_XPATH) == 'Most recent'
+    # except:
+    #     print("Couldnt parse Feed page")
+    #
+    # sleep(1)
+    # driver.close_app()
+    #
+    # sleep(1)
+    # driver = setup_no_app()
+    #
+    # sleep(1)
+    # startfoodvinefromhomescreen(driver)
+    #
+    # #### Feed page ####
+    # sleep(5)
+    # feedpage = FeedPage(driver)
+    # try:
+    #     print("Page title is ", feedpage.get_text(feedpage.PAGE_TITLE_XPATH))
+    #     assert feedpage.get_text(feedpage.PAGE_TITLE_XPATH) == 'Most recent'
+    # except:
+    #     print("Couldnt parse Feed page")
+    #
 
 
 
-    #### Login page ####
-    loginpage = LoginPage(driver)
-
-    assert loginpage.get_text(loginpage.PAGE_TITLE_XPATH) == "Login"
-    assert loginpage.get_text(loginpage.PASSWORD_CHANGE_CONFORMATION) == 'You can now login with your new password'
 
 
-    print("Username, email and password are:", un, ',', email, ',', pw)
-    loginpage.input_text(loginpage.USERNAME_OR_EMAIL_XPATH, un)
-    sleep(1)
-    loginpage.input_text(loginpage.PASSWORD_XPATH, pw)
-    sleep(1)
 
-    loginpage.click_button(loginpage.LOGIN_BUTTON_PW_CHANGE_XPATH)
 
-    #### Feed page ####
-    sleep(5)
-    feedpage = FeedPage(driver)
-    try:
-        print("Page title is ", feedpage.get_text(feedpage.PAGE_TITLE_XPATH))
-        assert feedpage.get_text(feedpage.PAGE_TITLE_XPATH) == 'Most recent'
-    except:
-        print("Couldnt parse Feed page")
+    # sleep(30)
+    #
+    # driver = setup_no_app()
+    # sleep(5)
+    # startfoodvinefromhomescreen(driver)
+    # sleep(2)
 
 
 
@@ -405,13 +335,108 @@ if __name__ == '__main__':
 
 
 
-
-
-
-
-
-
-
-    sleep(30)
+    #
+    # #### [Automated test] Forgot password ####
+    # #### Landing page ####
+    # landingpage = LandingPage(driver)
+    #
+    # landingpage.click_button(landingpage.ALLREADY_HAVE_AN_ACCOUNT_BUTTON_XPATH)
+    # sleep(2)
+    #
+    # #### Login page ####
+    # loginpage = LoginPage(driver)
+    #
+    # assert loginpage.get_text(loginpage.PAGE_TITLE_XPATH) == "Login"
+    #
+    # loginpage.click_button(loginpage.FORGOT_PASSWORD_BUTTON_XPATH)
+    # sleep(1)
+    #
+    #
+    # #### Forgot password page ####
+    # sleep(1)
+    # forgotpasswordpage = ForgotPasswordPage(driver)
+    #
+    # assert forgotpasswordpage.get_text(forgotpasswordpage.PAGE_TITLE_XPATH) == "Forgot password"
+    #
+    # un = getuser()[0]
+    # email = getuser()[1]
+    # pw = getuser()[2]
+    # print("Username, email and password are:", un, ',', email, ',', pw)
+    # forgotpasswordpage.input_text(forgotpasswordpage.USERNAME_OR_EMAIL_XPATH, un)
+    # forgotpasswordpage.click_button(forgotpasswordpage.SEND_BUTTON_XPATH)
+    #
+    # sleep(2)
+    #
+    #
+    # #### Phone Number Verification page ####
+    # phonenumberverificationpage = PhoneNumberVerificationPage(driver)
+    # assert phonenumberverificationpage.get_text(phonenumberverificationpage.PAGE_TITLE_PW_CHANGE_XPATH) == "Phone number verification"
+    # sleep(30)
+    # sms_code = getsmscode()
+    # print('SMS code:', sms_code)
+    # phonenumberverificationpage.input_text(phonenumberverificationpage.SMS_CODE_PW_CHANGE_INPUT, sms_code)
+    #
+    # sleep(2)
+    #
+    # #### Choose new password page ####
+    # choosenewpasswordpage = ChooseNewPasswordPage(driver)
+    # assert choosenewpasswordpage.get_text(choosenewpasswordpage.PAGE_TITLE_XPATH) == 'Choose new password'
+    #
+    # if pw == "1234Test":
+    #     pw = "1234Tests"
+    # else:
+    #     pw = "1234Test"
+    # changepw(un, email, pw)
+    #
+    # print("Username, email and password are now:", un, ',', email, ',', pw)
+    #
+    # choosenewpasswordpage.input_text(choosenewpasswordpage.NEW_PASSWORD_XPATH, pw)
+    # choosenewpasswordpage.input_text(choosenewpasswordpage.REPEAT_NEW_PASSWORD_XPATH, pw)
+    # choosenewpasswordpage.click_button(choosenewpasswordpage.CHANGE_PASSWORD_BUTTON_XPATH)
+    #
+    # sleep(2)
+    #
+    #
+    #
+    # #### Login page ####
+    # loginpage = LoginPage(driver)
+    #
+    # assert loginpage.get_text(loginpage.PAGE_TITLE_XPATH) == "Login"
+    # assert loginpage.get_text(loginpage.PASSWORD_CHANGE_CONFORMATION) == 'You can now login with your new password'
+    #
+    #
+    # loginpage.input_text(loginpage.USERNAME_OR_EMAIL_XPATH, un)
+    # sleep(1)
+    # loginpage.input_text(loginpage.PASSWORD_XPATH, pw)
+    # sleep(1)
+    #
+    # loginpage.click_button(loginpage.LOGIN_BUTTON_PW_CHANGE_XPATH)
+    #
+    # #### Feed page ####
+    # sleep(5)
+    # feedpage = FeedPage(driver)
+    # try:
+    #     print("Page title is ", feedpage.get_text(feedpage.PAGE_TITLE_XPATH))
+    #     assert feedpage.get_text(feedpage.PAGE_TITLE_XPATH) == 'Most recent'
+    # except:
+    #     print("Couldnt parse Feed page")
+    #
+    #
+    # sleep(30)
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    # sleep(30)
+    #
+    #
 
 

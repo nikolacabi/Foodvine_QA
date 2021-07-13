@@ -1,15 +1,19 @@
 from lxml import html
 import requests
+from time import sleep
+
 
 # Function that returns SMS code from online free phone
 # returns 0000 if it doesnt manage to read proper code
 
-
 def getsmscode():
-    page = requests.get('https://www.receivesms.org/us-number/3456/')
-    tree = html.fromstring(page.content)
+
+    sleep(30)
 
     sms_code = ['0000']
+
+    page = requests.get('https://www.receivesms.org/us-number/3456/')
+    tree = html.fromstring(page.content)
 
     for i in range(1, 10):
 
