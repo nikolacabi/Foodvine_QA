@@ -3,9 +3,9 @@ from appium import webdriver
 from time import sleep
 import random
 
-from pages.landing_page import LandingPage
+from pages.landing_page import LandingPageiOS
 from pages.account_details_page import AccountDetailsPage
-from pages.phone_number_verification_page import PhoneNumberVerificationPage
+from pages.phone_number_verification_page import PhoneNumberVerificationPageiOS
 from pages.food_preferences_page import FoodPreferencesPage
 from pages.location_page import LocationPage
 from pages.enter_postcode_page import EnterPostcodePage

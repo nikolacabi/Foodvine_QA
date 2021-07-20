@@ -6,7 +6,7 @@ from pages.page import Page
 from datetime import datetime
 
 
-class PhoneNumberVerificationPage(Page):
+class PhoneNumberVerificationPageAndroid(Page):
     # def __init__(self, driver):
     #     super().__init__(driver)
 
@@ -50,3 +50,16 @@ class PhoneNumberVerificationPage(Page):
     #             continue
     #
     #     return self.sms_code
+
+
+
+class PhoneNumberVerificationPageiOS(Page):
+
+    driver: webdriver = None
+
+    # PAGE_TITLE_XPATH =
+    PAGE_TITLE_PW_CHANGE_XPATH = "//*[@text='Phone number verification']"
+
+
+    # SMS_CODE_INPUT =
+    SMS_CODE_PW_CHANGE_INPUT = "//*[@class='UIATextField']"

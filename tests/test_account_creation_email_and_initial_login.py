@@ -12,7 +12,7 @@ from pages.whats_available_page import WhatsAvailablePage
 from pages.feed_page import FeedPage
 from functions.users import genuser
 from functions.users import getuser
-from functions.set_up import setup
+from functions.set_up import setup_with_app
 from functions.get_sms_code import getsmscode
 from functions.gen_city import gencity
 from pages.login_page import LoginPage
@@ -29,7 +29,7 @@ from functions.users import saveuser
 @pytest.mark.timeout(600)
 def test_account_creation_with_email_and_randomized_initial_login():
 
-    driver = setup()
+    driver = setup_with_app()
 
     #### [Automated Test] Foodie account creation with email ####
     #### Landing page ####
