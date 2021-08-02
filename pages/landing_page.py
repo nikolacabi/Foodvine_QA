@@ -17,8 +17,9 @@ class LandingPageAndroid(Page):
 
     SIGN_UP_WITH_EMAIL_BUTTON_XPATH = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.Button"
 
-    ALLREADY_HAVE_AN_ACCOUNT_BUTTON_XPATH = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup[3]/android.widget.Button"
+    # ALLREADY_HAVE_AN_ACCOUNT_BUTTON_XPATH = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup[3]/android.widget.Button"
 
+    ALLREADY_HAVE_AN_ACCOUNT_BUTTON_XPATH = "// *[ @ text = 'Already have an account?']"
 
     # def click_signup_emial(self):
     #     self.find_xpath(self.SIGN_UP_WITH_EMAIL_BUTTON_XPATH).click()
@@ -37,11 +38,11 @@ class LandingPageiOS(Page):
 
     driver: webdriver = None
 
-    CAROUSEL_TEXT_XPATH = "//*[@text='Authentic food from local farmers and home chefs']"
+    # CAROUSEL_TEXT_XPATH = "//*[@text='Authentic food from local farmers and home chefs']"
 
     JOIN_FOR_FREE_BUTTON_XPATH = "//*[@text='Join for free' and @class='UIAButton']"
 
-    # START_EXPLORING_NEW_FLAVOURS_POPUP_XPATH =
+    START_EXPLORING_NEW_FLAVOURS_POPUP_XPATH = "//*[@text='Start exploring new flavours']"
 
     SIGN_UP_WITH_EMAIL_BUTTON_XPATH = "//*[@text='Sign up with email' and @class='UIAButton']"
 

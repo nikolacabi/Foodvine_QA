@@ -57,9 +57,9 @@ class PhoneNumberVerificationPageiOS(Page):
 
     driver: webdriver = None
 
-    # PAGE_TITLE_XPATH =
-    PAGE_TITLE_PW_CHANGE_XPATH = "//*[@text='Phone number verification']"
+    PAGE_TITLE_XPATH = """    // *[ @ text = 'Phone number verification' and
+    @ class ='UIAStaticText']"""
 
 
     # SMS_CODE_INPUT =
-    SMS_CODE_PW_CHANGE_INPUT = "//*[@class='UIATextField']"
+    SMS_CODE_INPUT = "//*[@class='UIATextField']"

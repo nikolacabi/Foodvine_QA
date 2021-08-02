@@ -4,7 +4,7 @@ from pages.page import Page
 from datetime import datetime
 
 
-class FoodPreferencesPage(Page):
+class FoodPreferencesPageAndroid(Page):
     # def __init__(self, driver):
     #     super().__init__(driver)
 
@@ -32,6 +32,29 @@ class FoodPreferencesPage(Page):
     #     assert self.find_xpath(self.PAGE_TITLE_XPATH).text == "Food preferences"
 
 
+
+
+class FoodPreferencesPageiOS(Page):
+    # def __init__(self, driver):
+    #     super().__init__(driver)
+
+    driver: webdriver = None
+
+    PAGE_TITLE_XPATH = "//*[@text='Food preferences']"
+
+    SKIP_BUTTON_XPATH = "(//*[@text='󰁍 Food preferences' and ./parent::*[@text='󰁍 Food preferences' and ./parent::*[@text='󰁍 Food preferences']]]/*/*[@class='UIAView' and ./parent::*[@class='UIAView']])[2]"
+
+    AFRICAN_XPATH =     "//*[@text='African' and ./*[@text='African']]"
+    ASIAN_XPATH =       "//*[@text='Asian' and ./*[@text='Asian']]"
+    CARIBBEAN_XPATH =   "//*[@text='Caribbean' and ./*[@text='Caribbean']]"
+    MEXICAN_XPATH =     "//*[@text='Mexican' and ./*[@text='Mexican']]"
+    THAI_XPATH =        "//*[@text='Thai' and ./*[@text='Thai']]"
+    ITALIAN_XPATH =     "//*[@text='Italian' and ./*[@text='Italian']]"
+    GREEK_XPATH =       "//*[@text='Greek' and ./*[@text='Greek']]"
+    SEAFOOD_XPATH =     "//*[@text='Seafood' and ./*[@text='Seafood']]"
+    ORGANIC_XPATH =     "//*[@text='Organic' and ./*[@text='Organic']]"
+
+    CONTINUE_BUTTON_XPATH = "//*[@class='UIAButton']"
 
 
 

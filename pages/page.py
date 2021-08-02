@@ -29,3 +29,6 @@ class Page:
 
     def input_text(self, TXT_FIELD_XPATH, text):
         self.find_xpath(TXT_FIELD_XPATH).send_keys(text)
+
+    # def hide_keyboard(self):
+    #     self.hide_keyboard()

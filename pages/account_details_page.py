@@ -4,7 +4,7 @@ from pages.page import Page
 from datetime import datetime
 
 
-class AccountDetailsPage(Page):
+class AccountDetailsPageAndroid(Page):
     # def __init__(self, driver):
     #     super().__init__(driver)
 
@@ -58,3 +58,27 @@ class AccountDetailsPage(Page):
 
     # def click_continue(self):
     #     self.find_xpath(self.CONTINUE_BUTTON_XPATH).click()
+
+
+
+class AccountDetailsPageiOS(Page):
+    # def __init__(self, driver):
+    #     super().__init__(driver)
+
+    driver: webdriver = None
+
+    PAGE_TITLE_XPATH = "//*[@text='Account details']"
+
+    FIRST_NAME_XPATH = "//*[@class='UIATextField' and ./parent::*[./parent::*[./parent::*[./parent::*[./parent::*[@text='First name']]]]]]"
+
+    LAST_NAME_XPATH = "//*[@class='UIATextField' and ./parent::*[./parent::*[./parent::*[./parent::*[./parent::*[@text='Last name']]]]]]"
+
+    PHONE_XPATH = "(//*[@text='First name Last name Phone number US phone number only Email address Username Password Min. 8 characters and 1 number Continue By creating an account you agree to the  terms']/*/*/*/*/*[@class='UIATextField'])[1]"
+
+    EMAIL_XPATH = "(//*[@text='First name Last name Phone number US phone number only Email address Username Password Min. 8 characters and 1 number Continue By creating an account you agree to the  terms']/*/*/*/*/*[@class='UIATextField'])[2]"
+
+    USERNAME_XPATH = "(//*[@text='First name Last name Phone number US phone number only Email address Username Password Min. 8 characters and 1 number Continue By creating an account you agree to the  terms']/*/*/*/*/*[@class='UIATextField'])[3]"
+
+    PASSWORD_XPATH = "//*[@class='UIAView' and ./parent::*[@class='UIAView' and ./parent::*[@class='UIAView' and ./parent::*[@class='UIAView' and ./parent::*[@class='UIAView' and ./parent::*[@text='First name Last name Phone number US phone number only Email address Username Password Min. 8 characters and 1 number Continue By creating an account you agree to the  terms']]] and (./preceding-sibling::* | ./following-sibling::*)[@class='UIAView']]]]"
+
+    CONTINUE_BUTTON_XPATH = "//*[@class='UIAButton']"
