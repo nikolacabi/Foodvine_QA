@@ -21,7 +21,7 @@ class Page:
             return self.driver.find_elements(locator)
 
     def get_text(self, TXT_XPATH, wait=10):
-        assert self.find_xpath(TXT_XPATH, wait).is_displayed()
+        # assert self.find_xpath(TXT_XPATH, wait).is_displayed()
         return self.find_xpath(TXT_XPATH, wait).text
 
     def click_button(self, BTN_XPATH, wait=10):

@@ -2,24 +2,24 @@ import pytest
 from appium import webdriver
 from time import sleep
 import random
-from pages.landing_page import LandingPage
-from pages.account_details_page import AccountDetailsPage
-from pages.phone_number_verification_page import PhoneNumberVerificationPage
-from pages.food_preferences_page import FoodPreferencesPage
-from pages.location_page import LocationPage
-from pages.enter_postcode_page import EnterPostcodePage
-from pages.whats_available_page import WhatsAvailablePage
-from pages.feed_page import FeedPage
+from pages.landing_page import LandingPageAndroid
+from pages.account_details_page import AccountDetailsPageAndroid
+from pages.phone_number_verification_page import PhoneNumberVerificationPageAndroid
+from pages.food_preferences_page import FoodPreferencesPageAndroid
+from pages.location_page import LocationPageAndroid
+from pages.enter_postcode_page import EnterPostcodePageAndroid
+from pages.whats_available_page import WhatsAvailablePageAndroid
+from pages.feed_page import FeedPageAndroid
 from functions.users import genuser
 from functions.users import getuser
-from functions.set_up import setup_with_app
+from functions.set_up import setup_with_app_local
 from functions.get_sms_code import getsmscode
 from functions.gen_city import gencity
-from pages.login_page import LoginPage
-from functions.set_up import setup_no_app
+from pages.login_page import LoginPageAndroid
+from functions.set_up import setup_no_app_local
 from functions.start_foodvine_from_homescreen import startfoodvinefromhomescreen
-from pages.forgot_password_page import ForgotPasswordPage
-from pages.choose_new_password_page import ChooseNewPasswordPage
+from pages.forgot_password_page import ForgotPasswordPageAndroid
+from pages.choose_new_password_page import ChooseNewPasswordPageAndroid
 from functions.users import changepw
 from functions.users import saveuser
 
@@ -28,17 +28,19 @@ from functions.users import saveuser
 #@pytest.mark.timeout(300)
 def test_reset_password():
 
-    driver = setup_with_app()
+    driver = setup_with_app_local("Pixel_3a_API_30_x86")
+    sleep(10)
+
 
     #### [Automated test] Forgot password ####
     #### Landing page ####
-    landingpage = LandingPage(driver)
+    landingpage = LandingPageAndroid(driver)
 
     landingpage.click_button(landingpage.ALLREADY_HAVE_AN_ACCOUNT_BUTTON_XPATH)
     sleep(2)
 
     #### Login page ####
-    loginpage = LoginPage(driver)
+    loginpage = LoginPageAndroid(driver)
 
     assert loginpage.get_text(loginpage.PAGE_TITLE_XPATH) == "Login"
 
@@ -48,7 +50,7 @@ def test_reset_password():
 
     #### Forgot password page ####
     sleep(1)
-    forgotpasswordpage = ForgotPasswordPage(driver)
+    forgotpasswordpage = ForgotPasswordPageAndroid(driver)
 
     assert forgotpasswordpage.get_text(forgotpasswordpage.PAGE_TITLE_XPATH) == "Forgot password"
 
@@ -63,7 +65,7 @@ def test_reset_password():
 
 
     #### Phone Number Verification page ####
-    phonenumberverificationpage = PhoneNumberVerificationPage(driver)
+    phonenumberverificationpage = PhoneNumberVerificationPageAndroid(driver)
     assert phonenumberverificationpage.get_text(phonenumberverificationpage.PAGE_TITLE_PW_CHANGE_XPATH) == "Phone number verification"
     sleep(1)
     sms_code = getsmscode()
@@ -73,7 +75,7 @@ def test_reset_password():
     sleep(2)
 
     #### Choose new password page ####
-    choosenewpasswordpage = ChooseNewPasswordPage(driver)
+    choosenewpasswordpage = ChooseNewPasswordPageAndroid(driver)
     assert choosenewpasswordpage.get_text(choosenewpasswordpage.PAGE_TITLE_XPATH) == 'Choose new password'
 
     if pw == "1234Test":
@@ -93,7 +95,7 @@ def test_reset_password():
 
 
     #### Login page ####
-    loginpage = LoginPage(driver)
+    loginpage = LoginPageAndroid(driver)
 
     assert loginpage.get_text(loginpage.PAGE_TITLE_XPATH) == "Login"
     assert loginpage.get_text(loginpage.PASSWORD_CHANGE_CONFORMATION) == 'You can now login with your new password'
@@ -109,9 +111,9 @@ def test_reset_password():
     #### Feed page ####
     sleep(5)
     feedpage = FeedPage(driver)
-    try:
-        print("Page title is ", feedpage.get_text(feedpage.PAGE_TITLE_XPATH))
-        assert feedpage.get_text(feedpage.PAGE_TITLE_XPATH) == 'Most recent'
-    except:
-        print("Couldnt parse Feed page")
+    assert feedpage.get_text(feedpage.PAGE_TITLE_XPATH) == 'Most recent'
+
+
+    sleep(5)
+    driver.close_app()
 
