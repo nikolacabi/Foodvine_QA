@@ -42,7 +42,7 @@ class WhatsAvailablePageiOS(Page):
 
     driver: webdriver = None
 
-    PAGE_TITLE_XPATH =                            '''//*[@text=concat('What', "'", 's available in')]'''
+    PAGE_TITLE_XPATH =                          '''//*[@text=concat('What', "'", 's available in')]'''
 
     CITY_XPATH =                                "//*[@text='New York']"
 

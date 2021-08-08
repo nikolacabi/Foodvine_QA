@@ -55,13 +55,13 @@ class FeedPageiOS(Page):
 
     MY_STORE_XPATH = "//*[@text='My Store']"
 
-    PLUS_BUTTON_XPATH = "//*[@class='UIAView']//*[@x='849']//*[@y='174']//*[@width='72']//*[@height='72']//*[@knownSuperClass='UIView']//*[@XCElementType='XCUIElementTypeOther']"
+    PLUS_BUTTON_XPATH = '''((//*[@text="'" and ./parent::*[@text="'"]]/*[@class='UIAView'])[3]/*[@class='UIAView'])[1]'''
 
     ALLOW_ACCESS_XPATH = "//*[@text='Allow Foodvine to access photos, media, and files on your device?']"
 
-    ALLOW_XPATH = "//*[@text='Allow']"
+    ALLOW_XPATH = "//*[@text='Allow Access to All Photos']"
 
-    DENY_XPATH = "//*[@id='permission_deny_button']"
+    DENY_XPATH = "//*[@text='Don’t Allow']"
 
     POST_TITLE_XPATH = "(//*[@class='android.view.ViewGroup' and ./parent::*[@class='android.view.ViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='android.widget.ImageView']]/*[@text])[1]"
 

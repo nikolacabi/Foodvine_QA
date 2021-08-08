@@ -2,24 +2,25 @@ import pytest
 from appium import webdriver
 from time import sleep
 import random
-from pages.landing_page import LandingPageiOS
-from pages.account_details_page import AccountDetailsPageiOS
-from pages.phone_number_verification_page import PhoneNumberVerificationPageiOS
-from pages.food_preferences_page import FoodPreferencesPageiOS
-from pages.location_page import LocationPageiOS
-from pages.enter_postcode_page import EnterPostcodePageiOS
-from pages.whats_available_page import WhatsAvailablePageiOS
-from pages.feed_page import FeedPageiOS
+from pages.landing_page import LandingPageAndroid
+from pages.account_details_page import AccountDetailsPageAndroid
+from pages.phone_number_verification_page import PhoneNumberVerificationPageAndroid
+from pages.food_preferences_page import FoodPreferencesPageAndroid
+from pages.location_page import LocationPageAndroid
+from pages.enter_postcode_page import EnterPostcodePageAndroid
+from pages.whats_available_page import WhatsAvailablePageAndroid
+from pages.feed_page import FeedPageAndroid
 from functions.users import genuser
 from functions.users import getuser
-from functions.set_up import setup_with_app_cloud_ios
+from functions.set_up import setup_with_app_local
 from functions.get_sms_code import getsmscode
 from functions.gen_city import gencity
-from pages.login_page import LoginPageiOS
-from functions.set_up import setup_no_app
+from pages.login_page import LoginPageAndroid
+from functions.set_up import setup_no_app_local
+from functions.set_up import setup_with_app_cloud_ios
 from functions.start_foodvine_from_homescreen import startfoodvinefromhomescreen
-from pages.forgot_password_page import ForgotPasswordPageiOS
-from pages.choose_new_password_page import ChooseNewPasswordPageiOS
+from pages.forgot_password_page import ForgotPasswordPageAndroid
+from pages.choose_new_password_page import ChooseNewPasswordPageAndroid
 from functions.users import changepw
 from functions.users import saveuser
 
@@ -29,22 +30,25 @@ from functions.users import saveuser
 @pytest.mark.timeout(600)
 def test_account_creation_with_email_and_randomized_initial_login():
 
-    driver = setup_with_app_cloud_ios()
+    driver = setup_with_app_local("Pixel_3a_API_30_x86")
+    # driver = setup_with_app_cloud_ios("IPhone 11 Pro IO-UK 06")
+    sleep(10)
+
 
     #### [Automated Test] Foodie account creation with email ####
     #### Landing page ####
-    landingpage = LandingPageiOS(driver)
+    landingpage = LandingPageAndroid(driver)
 
-    # assert landingpage.get_text(landingpage.CAROUSEL_TEXT_XPATH) == "Authentic food from local farmers and home chefs"
+    assert landingpage.get_text(landingpage.CAROUSEL_TEXT_XPATH) == "Authentic food from local farmers and home chefs"
     landingpage.swipe_right_to_left()
     sleep(1)
-    # assert landingpage.get_text(landingpage.CAROUSEL_TEXT_XPATH) == "Explore behind the scenes content, recipes and more"
+    assert landingpage.get_text(landingpage.CAROUSEL_TEXT_XPATH) == "Explore behind the scenes content, recipes and more"
     landingpage.swipe_right_to_left()
     sleep(1)
-    # assert landingpage.get_text(landingpage.CAROUSEL_TEXT_XPATH) == "Follow your favorites, and build a following with your own content"
+    assert landingpage.get_text(landingpage.CAROUSEL_TEXT_XPATH) == "Follow your favorites, and build a following with your own content"
     landingpage.swipe_right_to_left()
     sleep(1)
-    # assert landingpage.get_text(landingpage.CAROUSEL_TEXT_XPATH) == "Join a community of small producers, home chefs and foodies like you"
+    assert landingpage.get_text(landingpage.CAROUSEL_TEXT_XPATH) == "Join a community of small producers, home chefs and foodies like you"
 
     landingpage.click_button(landingpage.JOIN_FOR_FREE_BUTTON_XPATH)
     sleep(2)
@@ -53,33 +57,31 @@ def test_account_creation_with_email_and_randomized_initial_login():
 
 
     #### Account Details page ####
-    accountdetailspage = AccountDetailsPageiOS(driver)
+    accountdetailspage = AccountDetailsPageAndroid(driver)
 
     sleep(1)
     assert accountdetailspage.get_text(accountdetailspage.PAGE_TITLE_XPATH) == "Account details"
-    un = genuser()[0]
-    email = genuser()[1]
-    pw = genuser()[2]
-    print("Username, email and password are:", un, ',', email, ',', pw)
-    accountdetailspage.input_text(accountdetailspage.PASSWORD_XPATH, pw)
-    sleep(1)
-    accountdetailspage.input_text(accountdetailspage.USERNAME_XPATH, un)
-    sleep(1)
     accountdetailspage.input_text(accountdetailspage.FIRST_NAME_XPATH, "Nikola")
     sleep(1)
     accountdetailspage.input_text(accountdetailspage.LAST_NAME_XPATH, "Pavicevic")
     sleep(1)
     accountdetailspage.input_text(accountdetailspage.PHONE_XPATH, "6054094539")
     sleep(1)
+    un = genuser()[0]
+    email = genuser()[1]
+    pw = genuser()[2]
+    print("Username, email and password are:", un, ',', email, ',', pw)
     accountdetailspage.input_text(accountdetailspage.EMAIL_XPATH, email)
     sleep(1)
-    driver.hide_keyboard()
+    accountdetailspage.input_text(accountdetailspage.USERNAME_XPATH, un)
+    sleep(1)
+    accountdetailspage.input_text(accountdetailspage.PASSWORD_XPATH, pw)
     sleep(1)
     accountdetailspage.click_button(accountdetailspage.CONTINUE_BUTTON_XPATH)
 
 
     #### Phone Number Verification page ####
-    phonenumberverificationpage = PhoneNumberVerificationPageiOS(driver)
+    phonenumberverificationpage = PhoneNumberVerificationPageAndroid(driver)
 
     sleep(2)
 
@@ -90,7 +92,7 @@ def test_account_creation_with_email_and_randomized_initial_login():
 
 
     #### Food Preferences page ####
-    foodpreferencespage = FoodPreferencesPageiOS(driver)
+    foodpreferencespage = FoodPreferencesPageAndroid(driver)
 
     sleep(2)
     assert foodpreferencespage.get_text(foodpreferencespage.PAGE_TITLE_XPATH) == "Food preferences"
@@ -141,7 +143,7 @@ def test_account_creation_with_email_and_randomized_initial_login():
 
 
     #### Location page ####
-    locationpage = LocationPageiOS(driver)
+    locationpage = LocationPageAndroid(driver)
 
     city = gencity()
     print("Location is set to:", city)
@@ -193,7 +195,7 @@ def test_account_creation_with_email_and_randomized_initial_login():
         locationpage.click_button(locationpage.ENTER_POSTCODE_BUTTON_XPATH)
         sleep(1)
 
-        enterpostcodepage = EnterPostcodePageiOS(driver)
+        enterpostcodepage = EnterPostcodePageAndroid(driver)
         assert enterpostcodepage.get_text(enterpostcodepage.PAGE_TITLE_XPATH) == 'Enter postcode'
         enterpostcodepage.input_text(enterpostcodepage.ZIP_XPATH, city[2])
         sleep(1)
@@ -201,57 +203,45 @@ def test_account_creation_with_email_and_randomized_initial_login():
 
 
     #### Whats available page ####
-    whatsavailablepage = WhatsAvailablePageiOS(driver)
+    whatsavailablepage = WhatsAvailablePageAndroid(driver)
 
     sleep(2)
 
     if loc_method==0:
-        try:
-            # print("Will try with 3")
-            assert whatsavailablepage.get_text(whatsavailablepage.PAGE_TITLE_XPATH_3, 300) == "What's available in"
-            # assert whatsavailablepage.get_text(whatsavailablepage.FARMER_MARKET_XPATH_AVAILABILITY_XPATH_3) == 'Available'
-            # assert whatsavailablepage.get_text(whatsavailablepage.RECIPES_AVAILABILITY_XPATH_3) == 'Available'
-            # assert whatsavailablepage.get_text(whatsavailablepage.LIVE_CLASSES_AVAILABILITY_XPATH_3) == 'Available'
-            # assert whatsavailablepage.get_text(whatsavailablepage.ORDER_FROM_HOME_CHEFS_AVAILABILITY_XPATH_3) == 'Soon'
-            whatsavailablepage.click_button(whatsavailablepage.FINISH_BUTTON_XPATH_3, 300)
-        except:
-            print("Couldnt parse What's available in page with 3")
+        assert whatsavailablepage.get_text(whatsavailablepage.PAGE_TITLE_XPATH_3, 300) == "What's available in"
+        # assert whatsavailablepage.get_text(whatsavailablepage.FARMER_MARKET_XPATH_AVAILABILITY_XPATH_3) == 'Available'
+        # assert whatsavailablepage.get_text(whatsavailablepage.RECIPES_AVAILABILITY_XPATH_3) == 'Available'
+        # assert whatsavailablepage.get_text(whatsavailablepage.LIVE_CLASSES_AVAILABILITY_XPATH_3) == 'Available'
+        # assert whatsavailablepage.get_text(whatsavailablepage.ORDER_FROM_HOME_CHEFS_AVAILABILITY_XPATH_3) == 'Soon'
+        whatsavailablepage.click_button(whatsavailablepage.FINISH_BUTTON_XPATH_3, 300)
+
 
     if loc_method==1:
-        try:
-            # print("Will try with 3")
-            assert whatsavailablepage.get_text(whatsavailablepage.PAGE_TITLE_XPATH_3, 300) == "What's available in"
-            assert whatsavailablepage.get_text(whatsavailablepage.CITY_XPATH_3, 300) == city[1]
-            assert whatsavailablepage.get_text(whatsavailablepage.FARMER_MARKET_XPATH_AVAILABILITY_XPATH_3, 300) == city[5]
-            assert whatsavailablepage.get_text(whatsavailablepage.RECIPES_AVAILABILITY_XPATH_3, 300) == city[6]
-            assert whatsavailablepage.get_text(whatsavailablepage.LIVE_CLASSES_AVAILABILITY_XPATH_3, 300) == city[7]
-            assert whatsavailablepage.get_text(whatsavailablepage.ORDER_FROM_HOME_CHEFS_AVAILABILITY_XPATH_3, 300) == city[8]
-            whatsavailablepage.click_button(whatsavailablepage.FINISH_BUTTON_XPATH_3, 300)
-        except:
-            print("Couldnt parse What's available in page with 3")
+        assert whatsavailablepage.get_text(whatsavailablepage.PAGE_TITLE_XPATH_3, 300) == "What's available in"
+        assert whatsavailablepage.get_text(whatsavailablepage.CITY_XPATH_3, 300) == city[1]
+        assert whatsavailablepage.get_text(whatsavailablepage.FARMER_MARKET_XPATH_AVAILABILITY_XPATH_3, 300) == city[5]
+        assert whatsavailablepage.get_text(whatsavailablepage.RECIPES_AVAILABILITY_XPATH_3, 300) == city[6]
+        assert whatsavailablepage.get_text(whatsavailablepage.LIVE_CLASSES_AVAILABILITY_XPATH_3, 300) == city[7]
+        assert whatsavailablepage.get_text(whatsavailablepage.ORDER_FROM_HOME_CHEFS_AVAILABILITY_XPATH_3, 300) == city[8]
+        whatsavailablepage.click_button(whatsavailablepage.FINISH_BUTTON_XPATH_3, 300)
 
     if loc_method==2:
-        try:
-            # print("Will try with 4")
-            assert whatsavailablepage.get_text(whatsavailablepage.PAGE_TITLE_XPATH_4, 300) == "What's available in"
-            assert whatsavailablepage.get_text(whatsavailablepage.CITY_XPATH_4, 300) == city[1]
-            assert whatsavailablepage.get_text(whatsavailablepage.FARMER_MARKET_XPATH_AVAILABILITY_XPATH_4, 300) == city[5]
-            assert whatsavailablepage.get_text(whatsavailablepage.RECIPES_AVAILABILITY_XPATH_4, 300) == city[6]
-            assert whatsavailablepage.get_text(whatsavailablepage.LIVE_CLASSES_AVAILABILITY_XPATH_4, 300) == city[7]
-            assert whatsavailablepage.get_text(whatsavailablepage.ORDER_FROM_HOME_CHEFS_AVAILABILITY_XPATH_4, 300) == city[8]
-            whatsavailablepage.click_button(whatsavailablepage.FINISH_BUTTON_XPATH_4, 300)
-        except:
-            print("Couldnt parse What's available in page")
+        assert whatsavailablepage.get_text(whatsavailablepage.PAGE_TITLE_XPATH_4, 300) == "What's available in"
+        assert whatsavailablepage.get_text(whatsavailablepage.CITY_XPATH_4, 300) == city[1]
+        assert whatsavailablepage.get_text(whatsavailablepage.FARMER_MARKET_XPATH_AVAILABILITY_XPATH_4, 300) == city[5]
+        assert whatsavailablepage.get_text(whatsavailablepage.RECIPES_AVAILABILITY_XPATH_4, 300) == city[6]
+        assert whatsavailablepage.get_text(whatsavailablepage.LIVE_CLASSES_AVAILABILITY_XPATH_4, 300) == city[7]
+        assert whatsavailablepage.get_text(whatsavailablepage.ORDER_FROM_HOME_CHEFS_AVAILABILITY_XPATH_4, 300) == city[8]
+        whatsavailablepage.click_button(whatsavailablepage.FINISH_BUTTON_XPATH_4, 300)
+
 
 
     #### Feed page ####
     sleep(5)
-    feedpage = FeedPageiOS(driver)
-    try:
-        print("Page title is ", feedpage.get_text(feedpage.PAGE_TITLE_XPATH))
-        assert feedpage.get_text(feedpage.PAGE_TITLE_XPATH) == 'Most recent'
-    except:
-        print("Couldnt parse Feed page")
+    feedpage = FeedPageAndroid(driver)
+    assert feedpage.get_text(feedpage.PAGE_TITLE_XPATH) == 'Most recent'
 
 
+
+    sleep(5)
     driver.close_app()

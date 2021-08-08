@@ -21,9 +21,18 @@ class EditPostPageAndroid(Page):
     PREVIEW_BUTTON_XPATH = "//*[@text='Preview']"
 
 
-class FeedPageiOS(Page):
+class EditPostPageiOS(Page):
     # def __init__(self, driver):
     #     super().__init__(driver)
 
     driver: webdriver = None
 
+    PAGE_TITLE_XPATH = "//*[@text='New Post']"
+
+    POST_TITLE_XPATH = "//*[@text='Post title Required']"
+
+    POST_CAPTION_XPATH = "//*[@text='Post caption Required']"
+
+    ADD_TAGS_XPATH = "//*[@text='Tags Add tags (optional)']"
+
+    PREVIEW_BUTTON_XPATH = "//*[@class='UIAButton']"

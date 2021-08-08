@@ -17,9 +17,14 @@ class InputPageAndroid(Page):
     SAVE_BUTTON_XPATH = "//*[@text='Save']"
 
 
-class FeedPageiOS(Page):
+class InputPageiOS(Page):
     # def __init__(self, driver):
     #     super().__init__(driver)
 
     driver: webdriver = None
 
+    # PAGE_TITLE_XPATH =  "//*[@text and @class='android.widget.TextView' and (./preceding-sibling::* | ./following-sibling::*)[@class='android.view.ViewGroup' and ./*[@class='android.widget.TextView']] and ./parent::*[@class='android.view.ViewGroup']]"
+
+    INPUT_FIELD_XPATH = "//*[@XCElementType='XCUIElementTypeStaticText']"
+
+    SAVE_BUTTON_XPATH = "//*[@text='Save' and @class='UIAButton']"

@@ -22,9 +22,20 @@ class PreviewPostPageAndroid(Page):
 
 
 
-class FeedPageiOS(Page):
+class PreviewPostPageiOS(Page):
     # def __init__(self, driver):
     #     super().__init__(driver)
 
     driver: webdriver = None
+
+    PAGE_TITLE_XPATH = "//*[@text='Preview post']"
+
+    POST_BUTTON_XPATH = "//*[@class='UIAButton']"
+
+    def post_title(self, title):
+        return "//*[@text='" + title + "']"
+
+    def post_caption(self, caption):
+        return "//*[@text='" + caption + "']"
+
 

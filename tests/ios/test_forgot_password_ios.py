@@ -3,20 +3,20 @@ from appium import webdriver
 from time import sleep
 import random
 from pages.landing_page import LandingPageiOS
-from pages.account_details_page import AccountDetailsPage
+from pages.account_details_page import AccountDetailsPageiOS
 from pages.phone_number_verification_page import PhoneNumberVerificationPageiOS
-from pages.food_preferences_page import FoodPreferencesPage
-from pages.location_page import LocationPage
-from pages.enter_postcode_page import EnterPostcodePage
-from pages.whats_available_page import WhatsAvailablePage
-from pages.feed_page import FeedPage
+from pages.food_preferences_page import FoodPreferencesPageiOS
+from pages.location_page import LocationPageiOS
+from pages.enter_postcode_page import EnterPostcodePageiOS
+from pages.whats_available_page import WhatsAvailablePageiOS
+from pages.feed_page import FeedPageiOS
 from functions.users import genuser
 from functions.users import getuser
 from functions.set_up import setup_with_app_cloud_ios
 from functions.get_sms_code import getsmscode
 from functions.gen_city import gencity
 from pages.login_page import LoginPageiOS
-from functions.set_up import setup_no_app
+from functions.set_up import setup_with_no_app_cloud_ios
 from functions.start_foodvine_from_homescreen import startfoodvinefromhomescreen
 from pages.forgot_password_page import ForgotPasswordPageiOS
 from pages.choose_new_password_page import ChooseNewPasswordPageiOS
@@ -28,7 +28,10 @@ from functions.users import saveuser
 #@pytest.mark.timeout(300)
 #def test_reset_password():
 def test_reset_password_ios():
-    driver = setup_with_app_cloud_ios()
+
+    driver = setup_with_app_cloud_ios("IPhone 11 Pro IO-UK 10")
+    # driver = setup_with_app_cloud_ios("IPhone 11 Pro IO-UK 06")
+    sleep(10)
 
     #### [Automated test] Forgot password ####
     #### Landing page ####
@@ -108,10 +111,9 @@ def test_reset_password_ios():
 
     #### Feed page ####
     sleep(5)
-    feedpage = FeedPage(driver)
-    try:
-        print("Page title is ", feedpage.get_text(feedpage.PAGE_TITLE_XPATH))
-        assert feedpage.get_text(feedpage.PAGE_TITLE_XPATH) == 'Most recent'
-    except:
-        print("Couldnt parse Feed page")
-
+    feedpage = FeedPageiOS(driver)
+    assert feedpage.get_text(feedpage.FEED_XPATH) == 'Feed'
+    assert feedpage.get_text(feedpage.DISCOVER_XPATH) == 'Discover'
+    assert feedpage.get_text(feedpage.ORDERS_XPATH) == 'Orders'
+    assert feedpage.get_text(feedpage.PROFILE_XPATH) == 'Profile'
+    assert feedpage.get_text(feedpage.MY_STORE_XPATH) == 'My Store'

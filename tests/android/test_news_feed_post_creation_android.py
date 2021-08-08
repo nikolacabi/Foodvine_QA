@@ -27,7 +27,8 @@ from pages.edit_post_page import EditPostPageAndroid
 from pages.input_page import InputPageAndroid
 from pages.preview_post_page import PreviewPostPageAndroid
 from functions.set_up import setup_with_app_cloud_android
-from pages.add_tags_page import AddTagsAndroid
+from functions.set_up import setup_with_app_cloud_ios
+from pages.add_tags_page import AddTagsPageAndroid
 
 
 
@@ -143,7 +144,7 @@ def test_media_post_creation_android():
     sleep(1)
 
     #### Add tags page ####
-    addtagspage = AddTagsAndroid(driver)
+    addtagspage = AddTagsPageAndroid(driver)
     addtagspage.input_text(addtagspage.INPUT_XPATH, "ch")
     sleep(1)
     addtagspage.click_button(addtagspage.TAG_2_XPATH)

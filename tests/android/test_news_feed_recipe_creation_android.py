@@ -30,7 +30,7 @@ from pages.input_page import InputPageAndroid
 from pages.preview_post_page import PreviewPostPageAndroid
 from functions.set_up import setup_with_app_cloud_android
 from pages.new_post_page import NewPostRecipePageAndroid
-from pages.add_tags_page import AddTagsAndroid
+from pages.add_tags_page import AddTagsPageAndroid
 from pages.add_ingredients_page import AddIngredientsPageAndroid
 
 
@@ -148,7 +148,7 @@ def test_recipe_post_creation_android():
     newpostpage.click_button(newpostpage.ADD_TAGS_XPATH)
 
     #### Add tags page ####
-    addtagspage = AddTagsAndroid(driver)
+    addtagspage = AddTagsPageAndroid(driver)
     addtagspage.input_text(addtagspage.INPUT_XPATH, "ch")
     sleep(1)
     addtagspage.click_button(addtagspage.TAG_2_XPATH)
